@@ -74,10 +74,10 @@ var handleClickOnImg = function(event) {
   }  
   totalClicks++;
   if(totalClicks === rounds){
-    imgClicked.removeEventListener('click', handleClickOnImg);
+    imgDivTag.removeEventListener('click', handleClickOnImg);
     for (var i = 0; i < groupImages.allImages.length; i++) {
       var liData = document.createElement('li');
-      liData.textContent `${groupImages.allImages[i].name}: ${groupImages.allImages[i].clicks} total clicks`;
+      liData.textContent = `${groupImages.allImages[i].name}: ${groupImages.allImages[i].clicks} total clicks`;
       ul.appendChild(liData);
       }
     }
@@ -87,7 +87,7 @@ imgDivTag.addEventListener('click', handleClickOnImg);
 
 new groupImages('bag', './img/bag.jpg');
 new groupImages('banana', './img/banana.jpg');
-new groupImages('bathroom','./imga/bathroom.jpg')
+new groupImages('bathroom','./img/bathroom.jpg')
 new groupImages('boots', './img/boots.jpg');
 new groupImages('breakfast', './img/breakfast.jpg');
 new groupImages('bubblegum', './img/bubblegum.jpg');
