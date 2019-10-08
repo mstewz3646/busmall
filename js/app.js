@@ -53,7 +53,28 @@ var pickNewImages = function(){
 };
 
 //EVENT HANDLER
+var handleClickonImage = function(event) {
+  if(totalClicks < 20) {
+    var thingWeClickedOn = event.target;
+    var id = thingWeClickedOn.id;
 
+    if (id === 'leftImg' || id === 'middleImg' || id === 'rightImg')
+      if (id === 'leftImg'){
+        leftImgOnPage.clicks ++;
+        }
+      if (id === 'middleImg'){
+        middleImgOnPage.clicks ++;
+      }
+      if (id === 'rightImg'){
+        rightImgOnPage.clicks ++;
+      }
+
+      leftImgOnPage.timesShown ++;
+      middleImgOnPage.timesShown ++;
+      rightImgOnPage.timesShown ++;
+    }
+    totalCLicks ++;
+  }
 
 
 
