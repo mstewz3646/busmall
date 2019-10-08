@@ -15,8 +15,8 @@ img {
   width: 35%;
   border-radius: 8px;
   border: darkgrey solid 10px;
-  
-}
+  align-items: center;
+  }
 
 p {
   margin: auto;

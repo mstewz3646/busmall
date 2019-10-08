@@ -2,10 +2,11 @@
 
 // Global variables
 
-var imageSectionTag = document.getElementById('imageDev');
-var leftImageTag = document.getElementById('left_img');
-var middleImageTag = document.getElementById('middle_img');
-var rightImageTag = document.getElementById('right_img');
+var rounds = 25;
+var imageDivTag = document.getElementById('div-images');
+var leftImageTag = document.getElementById('leftImg');
+var middleImageTag = document.getElementById('middleImg');
+var rightImageTag = document.getElementById('rightImg');
 
 var totalClicks = 0;
 
@@ -24,8 +25,6 @@ var groupImages = function (name, imgURL){
 };
 
 groupImages.allImages = [];
-console.log(groupImages.allImages)
-
 
 var renderNewImages = function(leftIndex, middleIndex, rightIndex){
   leftImageTag.src = groupImages.allImages[leftIndex].imgURL;
@@ -35,15 +34,13 @@ var renderNewImages = function(leftIndex, middleIndex, rightIndex){
 
 //B in notes, pick a new image
 
-//pick a new image function ()
-
 var pickNewImages = function(){
-  var leftIndex = Math.ceil(Mathrandom() * groupImages.allImages.length - 1);
+  var leftIndex = Math.ceil(Math.random() * groupImages.allImages.length - 1);
   
   do {
     var middleIndex = Math.ceil(Math.random() * groupImages.allImages.length - 1);
     var rightIndex = Math.ceil(Math.random() * groupImages.allImages.length - 1);
-  } while (leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
+  } while(leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
 
   leftImgOnPage = groupImages.allImages[leftIndex];
   middleImgonpage = groupImages.allImages[middleIndex];
@@ -53,12 +50,13 @@ var pickNewImages = function(){
 };
 
 //EVENT HANDLER
-var handleClickonImage = function(event) {
-  if(totalClicks < 20) {
+var handleClickOnImage = function(event) {
+  var ul = document.getElementById('ul-votes');
+  if(totalClicks < rounds) {
     var thingWeClickedOn = event.target;
     var id = thingWeClickedOn.id;
 
-    if (id === 'leftImg' || id === 'middleImg' || id === 'rightImg')
+    if (id === 'leftImg' || id === 'middleImg' || id === 'rightImg'){
       if (id === 'leftImg'){
         leftImgOnPage.clicks ++;
         }
@@ -72,12 +70,21 @@ var handleClickonImage = function(event) {
       leftImgOnPage.timesShown ++;
       middleImgOnPage.timesShown ++;
       rightImgOnPage.timesShown ++;
+      pickNewImages();
     }
-    totalCLicks ++;
-  }
+  }  
+  totalClicks ++;
+  if(totalClicks === rounds){
+    imageClicked.removeEventListener('click', handleClickOnImg);
+    for (var i = 0; i < groupImages.allImages.length; i++) {
+      var liData = document.createElement('li');
+      liData.textContent `${groupImages.allImages[i].name}: ${groupImages.allImages[i].clicks} total clicks`;
+      ul.appendChild(liData);
+      }
+    }
+  };
 
-
-
+imageDivTag.addEventListener('click', handleClickOnImage);
 
 new groupImages('bag', './img/bag.jpg');
 new groupImages('banana', './img/banana.jpg');
@@ -100,5 +107,6 @@ new groupImages('usb', './img/usb.gif');
 new groupImages('water-can', './img/water-can.jpg');
 new groupImages('wine-glass', './img/wine-glass.jpg');
 
+pickNewImages();
 
-}
+
