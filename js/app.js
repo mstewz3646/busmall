@@ -3,10 +3,11 @@
 // Global variables
 
 var rounds = 25;
-var imageDivTag = document.getElementById('div-images');
-var leftImageTag = document.getElementById('leftImg');
-var middleImageTag = document.getElementById('middleImg');
-var rightImageTag = document.getElementById('rightImg');
+var imgDivTag = document.getElementById('div-images');
+
+var leftImgTag = document.getElementById('leftImg');
+var middleImgTag = document.getElementById('middleImg');
+var rightImgTag = document.getElementById('rightImg');
 
 var totalClicks = 0;
 
@@ -15,24 +16,24 @@ var middleImgOnPage = null;
 var leftImgOnPage = null;
 
 // To keep track and store images on page
-var groupImages = function (name, imgURL){
+var groupImages = function(name, imgURL) {
   this.name = name;
   this.clicks = 0;
-  this.timeshown = 0;
+  this.timeShown = 0;
   this.imgURL = imgURL;
   
-  groupImages.allimages.push(this);
+  groupImages.allImages.push(this);
 };
 
 groupImages.allImages = [];
 
 var renderNewImages = function(leftIndex, middleIndex, rightIndex){
-  leftImageTag.src = groupImages.allImages[leftIndex].imgURL;
-  middleImageTag.src = groupImages.allImages[middleIndex].imgURL;
-  rightImageTag.src = groupImages.allImages[rightIndex].imgURL;
+  leftImgTag.src = groupImages.allImages[leftIndex].imgURL;
+  middleImgTag.src = groupImages.allImages[middleIndex].imgURL;
+  rightImgTag.src = groupImages.allImages[rightIndex].imgURL;
 };
 
-//B in notes, pick a new image
+//B in notes, pick a new img
 
 var pickNewImages = function(){
   var leftIndex = Math.ceil(Math.random() * groupImages.allImages.length - 1);
@@ -43,39 +44,37 @@ var pickNewImages = function(){
   } while(leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
 
   leftImgOnPage = groupImages.allImages[leftIndex];
-  middleImgonpage = groupImages.allImages[middleIndex];
+  middleImgOnPage = groupImages.allImages[middleIndex];
   rightImgOnPage = groupImages.allImages[rightIndex];
 
   renderNewImages(leftIndex, middleIndex, rightIndex);
 };
 
 //EVENT HANDLER
-var handleClickOnImage = function(event) {
+var handleClickOnImg = function(event) {
   var ul = document.getElementById('ul-votes');
   if(totalClicks < rounds) {
     var thingWeClickedOn = event.target;
     var id = thingWeClickedOn.id;
 
-    if (id === 'leftImg' || id === 'middleImg' || id === 'rightImg'){
-      if (id === 'leftImg'){
-        leftImgOnPage.clicks ++;
-        }
-      if (id === 'middleImg'){
-        middleImgOnPage.clicks ++;
-      }
-      if (id === 'rightImg'){
-        rightImgOnPage.clicks ++;
+    if (id === 'leftImg' || id === 'middleImg' || id === 'rightImg') {
+      if (id === 'leftImg') {
+        leftImgOnPage.clicks++;
+      } else if (id === 'middleImg') {
+        middleImgOnPage.clicks++;
+      } else if (id === 'rightImg') {
+        rightImgOnPage.clicks++;
       }
 
-      leftImgOnPage.timesShown ++;
-      middleImgOnPage.timesShown ++;
-      rightImgOnPage.timesShown ++;
+      leftImgOnPage.timeShown++;
+      middleImgOnPage.timeShown++;
+      rightImgOnPage.timeShown++;
       pickNewImages();
     }
   }  
-  totalClicks ++;
+  totalClicks++;
   if(totalClicks === rounds){
-    imageClicked.removeEventListener('click', handleClickOnImg);
+    imgClicked.removeEventListener('click', handleClickOnImg);
     for (var i = 0; i < groupImages.allImages.length; i++) {
       var liData = document.createElement('li');
       liData.textContent `${groupImages.allImages[i].name}: ${groupImages.allImages[i].clicks} total clicks`;
@@ -84,7 +83,7 @@ var handleClickOnImage = function(event) {
     }
   };
 
-imageDivTag.addEventListener('click', handleClickOnImage);
+imgDivTag.addEventListener('click', handleClickOnImg);
 
 new groupImages('bag', './img/bag.jpg');
 new groupImages('banana', './img/banana.jpg');
