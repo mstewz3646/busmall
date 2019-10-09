@@ -16,32 +16,6 @@ var rightImgOnPage = null;
 var middleImgOnPage = null;
 var leftImgOnPage = null;
 
-// var groupArray = [
-//   ['bag', './img/bag.jpg'],
-//   ['banana', './img/banana.jpg'],
-//   ['bathroom','./img/bathroom.jpg'],
-//   ['boots', './img/boots.jpg'],
-//   ['breakfast', './img/breakfast.jpg'],
-//   ['bubblegum', './img/bubblegum.jpg'],
-//   ['chair', './img/chair.jpg'],
-//   ['cthulhu', './img/cthulhu.jpg'],
-//   ['dog-duck', './img/dog-duck.jpg'],
-//   ['dragon', './img/dragon.jpg'],
-//   ['pen', './img/pen.jpg'],
-//   ['pet-sweep', './img/pet-sweep.jpg'],
-//   ['scissors', './img/scissors.jpg'],
-//   ['shark', './img/shark.jpg'],
-//   ['sweep', './img/sweep.png'],
-//   ['tauntaun', './img/tauntaun.jpg'],
-//   ['unicorn', './img/unicorn.jpg'],
-//   ['usb', './img/usb.gif'],
-//   ['water-can', './img/water-can.jpg'],
-//   ['wine-glass', './img/wine-glass.jpg'],
-// ];
-
-
-
-// To keep track and store images on page
 var groupImages = function(name, imgURL) {
   this.name = name;
   this.clicks = 0;
@@ -49,32 +23,28 @@ var groupImages = function(name, imgURL) {
   this.imgURL = imgURL;
   
   groupImages.allImages.push(this);
+
 };
-
-
-//LOCAL STORAGE
-
-// updateLocalStorage();
 
 groupImages.allImages = [];
 
-// function updateLocalStorage(){
-//   var arrString = JSON.stringify (groupImages.allImages);
-//   console.log('stringified', arrString);
-//   console.log('not stringified', groupImages.allImages)
-// };
+// LOCAL STORAGE
+function updateLocalStorage(){
+  var arrString = JSON.stringify (groupImages.allImages);
+  console.log('stringified', arrString);
+  console.log('not stringified', groupImages.allImages)
+  localStorage.setItem('products', arrString);
+};
 
-// function getSelectProducts(){
-//   console.log('trying to get data from localStorage')
+function getSelectProducts(){
+  console.log('trying to get data from localStorage')
 
-//   var data = localStorage.getItem('coffee');
-//   var productData = JSON.parse(data);
+  var data = localStorage.getItem('products');
+  var productData = JSON.parse(data);
+}
 
-//   if(productData = !== null){
-//     groupImages.allImages = productData;
-//   }
-//   renderSelections();
-// };
+// renderSelections();
+
 
 
 var renderNewImages = function(leftIndex, middleIndex, rightIndex){
@@ -99,7 +69,6 @@ var pickNewImages = function(){
 };
 
 //EVENT HANDLER
-
 var handleClickOnImg = function(event) {
   var ul = document.getElementById('ul-votes');
   if(totalClicks < rounds) {
@@ -127,12 +96,10 @@ var handleClickOnImg = function(event) {
       var liData = document.createElement('li');
       liData.textContent = `${groupImages.allImages[i].name}: ${groupImages.allImages[i].clicks} total clicks`;
       ul.appendChild(liData);
-      // resetButton.addEventListener('click',handleReset);
-      // resetButton.className = 'resetEnable';
-      // imageSectionTag.removeEventListener('click', handleClickOnImg);
-      console.log('click',handleClickOnImg);
+      
       console.log('You have seen 25 images, thanks for your time!');
       makeImageChart();
+      updateLocalStorage();
       }
     }
   };
@@ -186,13 +153,11 @@ var genData = function(images) {
   
   }
 
-  console.log(dataArr);
   return dataArr;
   
 };
 
-function makeImageChart(){
-
+function makeImageChart() {
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'bar',
