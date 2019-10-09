@@ -43,5 +43,18 @@ p {
   text-align: right;
   border-radius: 1px;
   border: grey;
+}
 
+.resetDisable {
+  font-size: 1.25em;
+  background-color: red;
+  color: lightgrey;
+  width: 80px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  position: fixed;
+  top: 350px;
+  border: 1px black;
+  border-radius: 3px;
 }
