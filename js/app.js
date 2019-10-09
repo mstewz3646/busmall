@@ -15,6 +15,31 @@ var rightImgOnPage = null;
 var middleImgOnPage = null;
 var leftImgOnPage = null;
 
+// var groupArray = [
+//   ['bag', './img/bag.jpg'],
+//   ['banana', './img/banana.jpg'],
+//   ['bathroom','./img/bathroom.jpg'],
+//   ['boots', './img/boots.jpg'],
+//   ['breakfast', './img/breakfast.jpg'],
+//   ['bubblegum', './img/bubblegum.jpg'],
+//   ['chair', './img/chair.jpg'],
+//   ['cthulhu', './img/cthulhu.jpg'],
+//   ['dog-duck', './img/dog-duck.jpg'],
+//   ['dragon', './img/dragon.jpg'],
+//   ['pen', './img/pen.jpg'],
+//   ['pet-sweep', './img/pet-sweep.jpg'],
+//   ['scissors', './img/scissors.jpg'],
+//   ['shark', './img/shark.jpg'],
+//   ['sweep', './img/sweep.png'],
+//   ['tauntaun', './img/tauntaun.jpg'],
+//   ['unicorn', './img/unicorn.jpg'],
+//   ['usb', './img/usb.gif'],
+//   ['water-can', './img/water-can.jpg'],
+//   ['wine-glass', './img/wine-glass.jpg'],
+// ];
+
+
+
 // To keep track and store images on page
 var groupImages = function(name, imgURL) {
   this.name = name;
@@ -32,8 +57,6 @@ var renderNewImages = function(leftIndex, middleIndex, rightIndex){
   middleImgTag.src = groupImages.allImages[middleIndex].imgURL;
   rightImgTag.src = groupImages.allImages[rightIndex].imgURL;
 };
-
-//B in notes, pick a new img
 
 var pickNewImages = function(){
   var leftIndex = Math.ceil(Math.random() * groupImages.allImages.length - 1);
@@ -109,3 +132,56 @@ new groupImages('wine-glass', './img/wine-glass.jpg');
 pickNewImages();
 
 
+var genLabels = function(images) {
+  var labelsArr = [];
+  for (var i=0; i < images.length; i++){
+    labelsArr.push(images[i].name);
+  }
+  return labelsArr;
+};
+
+var genData = function(images) {
+  var dataArr = [];
+  for (var i=0; i < images.length; i++){
+    dataArr.push(images[i].clicks);
+  }
+  return dataArr;
+};
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+type: 'bar',
+data: {
+  labels: genLabels(groupImages.allImages),
+  datasets: [{
+    label: '# of Votes',
+    data: genData(groupImages.allImages),
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(255, 206, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(255, 159, 64, 0.2)'
+    ],
+    borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+    ],
+  borderWidth: 1
+  }]
+},
+options: {
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true
+        }
+      }]
+    }
+  }
+});

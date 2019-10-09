@@ -22,9 +22,16 @@ img {
   border-radius: 8px;
   border: darkgrey solid 10px;
   text-align: center;
+  margin: auto;
   }
 
 p {
   margin: auto;
   width: 500px;
+}
+
+#chartDiv {
+  width: 600px;
+  height: 600px;
+  margin: auto;
 }
