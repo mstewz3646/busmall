@@ -8,6 +8,7 @@ var imgDivTag = document.getElementById('div-images');
 var leftImgTag = document.getElementById('leftImg');
 var middleImgTag = document.getElementById('middleImg');
 var rightImgTag = document.getElementById('rightImg');
+var resetButton = document.getElementById('reset');
 
 var totalClicks = 0;
 
@@ -50,7 +51,31 @@ var groupImages = function(name, imgURL) {
   groupImages.allImages.push(this);
 };
 
+
+//LOCAL STORAGE
+
+// updateLocalStorage();
+
 groupImages.allImages = [];
+
+// function updateLocalStorage(){
+//   var arrString = JSON.stringify (groupImages.allImages);
+//   console.log('stringified', arrString);
+//   console.log('not stringified', groupImages.allImages)
+// };
+
+// function getSelectProducts(){
+//   console.log('trying to get data from localStorage')
+
+//   var data = localStorage.getItem('coffee');
+//   var productData = JSON.parse(data);
+
+//   if(productData = !== null){
+//     groupImages.allImages = productData;
+//   }
+//   renderSelections();
+// };
+
 
 var renderNewImages = function(leftIndex, middleIndex, rightIndex){
   leftImgTag.src = groupImages.allImages[leftIndex].imgURL;
@@ -74,6 +99,7 @@ var pickNewImages = function(){
 };
 
 //EVENT HANDLER
+
 var handleClickOnImg = function(event) {
   var ul = document.getElementById('ul-votes');
   if(totalClicks < rounds) {
@@ -107,6 +133,13 @@ var handleClickOnImg = function(event) {
   };
 
 imgDivTag.addEventListener('click', handleClickOnImg);
+
+// RESET BUTTON
+// function handleReset(){
+//   totalClicks = 0;
+//   imageSectionTag.addEventListener('click', handleCLickOnImg);
+//   resetButton.className = 'resetDisable';
+// }
 
 new groupImages('bag', './img/bag.jpg');
 new groupImages('banana', './img/banana.jpg');
@@ -144,8 +177,13 @@ var genData = function(images) {
   var dataArr = [];
   for (var i=0; i < images.length; i++){
     dataArr.push(images[i].clicks);
+    console.log(images[i].clicks);
+  
   }
+
+  console.log(dataArr);
   return dataArr;
+  
 };
 
 var ctx = document.getElementById('myChart').getContext('2d');
