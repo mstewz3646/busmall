@@ -43,9 +43,6 @@ function getSelectProducts(){
   var productData = JSON.parse(data);
 }
 
-// renderSelections();
-
-
 
 var renderNewImages = function(leftIndex, middleIndex, rightIndex){
   leftImgTag.src = groupImages.allImages[leftIndex].imgURL;
